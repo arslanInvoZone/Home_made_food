@@ -1,0 +1,30 @@
+.container{
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+    .imageContainer{
+    flex: 7;
+}
+.imageContainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.formContainer{
+    flex: 5;
+    background-color: tomato;
+    position: relative;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+@media screen and (max-width:500px) {
+    .imageContainer{
+        display: none;
+    }
+    .formContainer{
+        flex:12
+    }
+}
