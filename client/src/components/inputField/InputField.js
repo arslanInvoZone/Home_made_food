@@ -6,7 +6,7 @@ function InputField({ width, label, id, margin, type, ...props }) {
   return (
     <>
       <TextField
-      error={meta.touched && meta.error && true}
+        error={meta.touched && meta.error && true}
         id={id}
         fullWidth={width}
         label={label}
@@ -14,8 +14,10 @@ function InputField({ width, label, id, margin, type, ...props }) {
         type={type}
         {...field}
         {...props}
-        autoComplete='off'
-        helperText={meta.touched && meta.error && <ErrorMessage name={field.name}/>}
+        autoComplete="off"
+        helperText={
+          meta.touched && meta.error && <ErrorMessage name={field.name} />
+        }
       />
     </>
   )

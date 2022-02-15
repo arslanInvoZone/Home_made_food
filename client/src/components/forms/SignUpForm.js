@@ -6,18 +6,16 @@ import { Button } from '@mui/material'
 import * as Yup from 'yup'
 function SignUpForm() {
   const validate = Yup.object({
-    username:Yup.string()
-    .max(15,'Must be 15 character or less')
-    .required('Required'),
-    email:Yup.string()
-    .email('Email is invalid')
-    .required('Email is required'),
-    password:Yup.string()
-    .min(8,'Password must be at least 8 characters')
-    .required('Password is required'),
-    confirmPassword:Yup.string()
-    .oneOf([Yup.ref('password'),null],'Password must match')
-    .required('Confirm password is required')
+    username: Yup.string()
+      .max(15, 'Must be 15 character or less')
+      .required('Required'),
+    email: Yup.string().email('Email is invalid').required('Email is required'),
+    password: Yup.string()
+      .min(8, 'Password must be at least 8 characters')
+      .required('Password is required'),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], 'Password must match')
+      .required('Confirm password is required'),
   })
   return (
     <Formik
@@ -28,8 +26,8 @@ function SignUpForm() {
         confirmPassword: '',
       }}
       validationSchema={validate}
-      onSubmit={values =>{
-        console.log(values) 
+      onSubmit={(values) => {
+        console.log(values)
       }}
     >
       {(formik) => (
@@ -40,35 +38,42 @@ function SignUpForm() {
               width={true}
               label={'User Name'}
               id={'outlined-username-input'}
-              name='username'
+              name="username"
               margin={'dense'}
-              type='text'
+              type="text"
             />
             <InputField
               width={true}
               label={'Email'}
               id={'outlined-email-input'}
-              name='email'
+              name="email"
               margin={'dense'}
-              type='email'
+              type="email"
             />
             <InputField
               width={true}
               label={'Password'}
               id={'outlined-password-input'}
-              name='password'
+              name="password"
               margin={'dense'}
-              type='password'
+              type="password"
             />
             <InputField
               width={true}
               label={'Confirm Password'}
               id={'outlined-confirmpassword-input'}
-              name='confirmPassword'
+              name="confirmPassword"
               margin={'dense'}
-              type='password'
+              type="password"
             />
-            <Button variant='contained' size='large' type='submit' className={Styles.formBtn}>Sign Up</Button>
+            <Button
+              variant="contained"
+              size="large"
+              type="submit"
+              className={Styles.formBtn}
+            >
+              Sign Up
+            </Button>
           </Form>
         </div>
       )}

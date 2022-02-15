@@ -6,22 +6,20 @@ import { Button } from '@mui/material'
 import * as Yup from 'yup'
 function LoginForm() {
   const validate = Yup.object({
-    email:Yup.string()
-    .email('Email is invalid')
-    .required('Email is required'),
-    password:Yup.string()
-    .min(8,'Password must be at least 8 characters')
-    .required('Password is required'),
+    email: Yup.string().email('Email is invalid').required('Email is required'),
+    password: Yup.string()
+      .min(8, 'Password must be at least 8 characters')
+      .required('Password is required'),
   })
   return (
     <Formik
       initialValues={{
         email: '',
-        password: ''
+        password: '',
       }}
       validationSchema={validate}
-      onSubmit={values =>{
-        console.log(values) 
+      onSubmit={(values) => {
+        console.log(values)
       }}
     >
       {(formik) => (
@@ -32,19 +30,26 @@ function LoginForm() {
               width={true}
               label={'Email'}
               id={'outlined-email-input'}
-              name='email'
+              name="email"
               margin={'dense'}
-              type='email'
+              type="email"
             />
             <InputField
               width={true}
               label={'Password'}
               id={'outlined-password-input'}
-              name='password'
+              name="password"
               margin={'dense'}
-              type='password'
+              type="password"
             />
-            <Button variant='contained' size='large' type='submit' className={Styles.formBtn}>Log In</Button>
+            <Button
+              variant="contained"
+              size="large"
+              type="submit"
+              className={Styles.formBtn}
+            >
+              Log In
+            </Button>
           </Form>
         </div>
       )}
