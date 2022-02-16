@@ -5,3 +5,12 @@
     grid-gap:25px
     
 }
+@media screen and (max-width:500px) {
+    .contentWrapper{
+        display: grid;
+        grid-template-columns: auto;
+        margin: 20px 0px;
+        grid-gap:25px
+        
+    }
+}

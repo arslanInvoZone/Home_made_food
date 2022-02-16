@@ -1,0 +1,9 @@
+.btnContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn{
+    background-color: black !important;
+    text-align: center !important;
+}
