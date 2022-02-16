@@ -15,10 +15,9 @@ import MenuIcon from '@mui/icons-material/Menu'
 import { Link } from 'react-router-dom'
 function Index({ user, children }) {
   const pages = [
-    { name: 'Menus', link: '/' },
-    { name: 'Meals', link: '/menu/1' },
-    { name: 'Payments', link: '/payments' },
+    { name: 'Home', link: '/' },
     { name: 'About Us', link: '/aboutus' },
+    { name: 'Contact Us', link: '/contactus' },
   ]
   const [anchorElNav, setAnchorElNav] = useState(null)
   const handleOpenNavMenu = (event) => {
