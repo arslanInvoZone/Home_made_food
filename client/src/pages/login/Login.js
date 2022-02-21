@@ -5,7 +5,7 @@ function Login() {
   return (
     <div className={Styles.container}>
       <div className={Styles.imageContainer}>
-        <img src="./assets/images/loginImage.jpg" alt="" />
+        <img src={`${process.env.REACT_APP_ROOT_PATH}assets/images/loginImage.jpg`} alt="" />
       </div>
       <div className={Styles.formContainer}>
         <LoginForm />

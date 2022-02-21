@@ -2,9 +2,15 @@ import React from 'react'
 import InputField from '../inputField/InputField'
 import { Formik, Form } from 'formik'
 import Styles from './form.module.css'
-import { Button } from '@mui/material'
+import { Button, Typography } from '@mui/material'
+import {Link,useNavigate} from 'react-router-dom'
 import * as Yup from 'yup'
+import { useDispatch} from 'react-redux'
+import { login } from '../../actions/userAction'
+
 function LoginForm() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const validate = Yup.object({
     email: Yup.string().email('Email is invalid').required('Email is required'),
     password: Yup.string()
@@ -19,7 +25,9 @@ function LoginForm() {
       }}
       validationSchema={validate}
       onSubmit={(values) => {
-        console.log(values)
+        const {email,password} = values
+        dispatch(login(email, password));
+        navigate('/')
       }}
     >
       {(formik) => (
@@ -42,6 +50,14 @@ function LoginForm() {
               margin={'dense'}
               type="password"
             />
+            <Typography>
+              Don't have an account? Please
+              &nbsp;
+              <Link to="/signup">
+                  Sign Up
+              </Link>
+            </Typography>
+            <br></br>
             <Button
               variant="contained"
               size="large"

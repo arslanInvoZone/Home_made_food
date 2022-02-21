@@ -2,7 +2,7 @@ table {
     font-family: inherit;
     border-collapse: collapse;
     width: 100%;
-    margin-bottom:165px;
+    /* margin-bottom:165px; */
   }
   
   td, th {
@@ -12,7 +12,7 @@ table {
   }
   tr:nth-child(even) {
     background-color: rgba(255, 99, 71, 0.616);
-    color:white
+    color:white !important;
   }
   .delete{
       margin-left: 5px;

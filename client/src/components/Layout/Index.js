@@ -13,19 +13,27 @@ import {
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import { Link } from 'react-router-dom'
-function Index({ user, children }) {
+import { useDispatch, useSelector } from 'react-redux'
+import {logout} from '../../actions/userAction'
+function Index({children }) {
   const pages = [
     { name: 'Menus', link: '/' },
-    { name: 'Meals', link: '/menu/1' },
+    { name: 'Meals', link: '/menus/meals' },
     { name: 'Payments', link: '/payments' },
     { name: 'About Us', link: '/aboutus' },
   ]
+  const user = useSelector((state)=>state.userLogin)
+  const {userInfo} = user
+  const dispatch = useDispatch()
   const [anchorElNav, setAnchorElNav] = useState(null)
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget)
   }
   const handleCloseNavMenu = () => {
     setAnchorElNav(null)
+  }
+  const logoutHandler=()=>{
+    dispatch(logout())
   }
   return (
     <>
@@ -42,7 +50,8 @@ function Index({ user, children }) {
                 Home Food
               </Typography>
             </Link>
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            {userInfo && userInfo.user.admin ? " " :(
+              <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -74,7 +83,7 @@ function Index({ user, children }) {
                 {pages.map((page) => (
                   <Link
                     key={page.name}
-                    to={page.link}
+                    to={userInfo?page.link:'/login'}
                     style={{ textDecoration: 'none', color: 'black' }}
                   >
                     <MenuItem onClick={handleCloseNavMenu}>
@@ -84,6 +93,7 @@ function Index({ user, children }) {
                 ))}
               </Menu>
             </Box>
+            )}
             <Typography
               variant="h6"
               noWrap
@@ -93,10 +103,10 @@ function Index({ user, children }) {
               LOGO
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {pages.map((page) => (
+              {userInfo && userInfo.user.admin ? " " : pages.map((page) => (
                 <Link
                   key={page.name}
-                  to={page.link}
+                  to={userInfo?page.link:'/login'}
                   style={{ textDecoration: 'none', color: 'white' }}
                 >
                   <Button
@@ -108,10 +118,20 @@ function Index({ user, children }) {
                 </Link>
               ))}
             </Box>
-            {user ? (
+            {userInfo ? (
               <>
-                <Button color="inherit">Arslan</Button>
-                <Button color="inherit">Log Out</Button>
+                <Button color="inherit">{userInfo.user.name}</Button>
+                <Button color="inherit" onClick={logoutHandler}>Log Out</Button>
+                {userInfo.user.admin?(
+                  <Link
+                  to="/admin"
+                  style={{ textDecoration: 'none', color: 'white' }}
+                >
+                  <Button color="inherit" >Admin DashBoard</Button>
+                </Link>
+                ):
+                ('')
+                }   
               </>
             ) : (
               <>

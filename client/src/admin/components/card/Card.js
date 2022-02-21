@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
@@ -6,28 +5,25 @@ import Typography from '@mui/material/Typography'
 import { Alert, Button, CardActionArea, CardActions, Snackbar } from '@mui/material'
 import Styles from './card.module.css'
 import { useSelector,useDispatch } from 'react-redux'
-import {subscribedMenu} from '../../actions/userAction'
-export default function MultiActionAreaCard({name,des,imgUrl,id,sub}) {
+import {  useState } from 'react'
+import { deleteMenu } from '../../../actions/menuAction'
+export default function MultiActionAreaCard({name,des,imgUrl,id,del}) {
   const [open,setOpen] = useState(false);
-  const subscribedData = useSelector((state)=>state.userSubMenu)
-  const {message} = subscribedData
+  
+  const deletedMenuData = useSelector((state)=>state.deletedMenu)
+  const {message} = deletedMenuData
   const dispatch = useDispatch()
-  const [subscribe,setSubscribe] = useState(sub)
-
-  const subcribeMenuHandler = async() =>{
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'))
-    const {user} = userInfo
-    if(user.admin===false){
-      setOpen(true)
-      await dispatch(subscribedMenu(user.id,id))
-      setSubscribe(true)
-    }
-    
-    
+  const deleteMenuHandler = async() =>{
+    setOpen(true)
+    await dispatch(deleteMenu(id))
+    setTimeout(()=>{
+      del(true)
+    },1000)
   }
   const handleClose = () => {
     setOpen(false)
   }
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
@@ -47,11 +43,11 @@ export default function MultiActionAreaCard({name,des,imgUrl,id,sub}) {
         </CardContent>
       </CardActionArea>
       <CardActions className={Styles.btnContainer}>
-        <Button disabled={subscribe} onClick={subcribeMenuHandler} variant='contained' className={Styles.btn}>
-          Subscribe
+        <Button onClick={deleteMenuHandler} variant='contained' className={Styles.btn}>
+          Delete
         </Button>
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
           {message} 
         </Alert>
     </Snackbar>

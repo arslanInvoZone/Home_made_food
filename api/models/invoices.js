@@ -2,43 +2,37 @@
 const {
   Model
 } = require('sequelize');
-const menus = require('./menus');
 module.exports = (sequelize, DataTypes) => {
-  class users extends Model {
+  class invoices extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      users.belongsToMany(models.menus,{through:'users_menus'})
+      // define association here
     }
   }
-  users.init({
-    uuid:{
-      type:DataTypes.UUID,
-      defaultValue:DataTypes.UUIDV4
-    },
-    name:{
-      type:DataTypes.STRING,
-      allowNull:false
-    } ,
-    email:{
+  invoices.init({
+    menu:{
       type:DataTypes.STRING,
       allowNull:false
     },
-    password:{
-      type:DataTypes.STRING,
+    total_meals:{
+      type:DataTypes.INTEGER,
       allowNull:false
     },
-    admin:{
-      type:DataTypes.BOOLEAN,
-      allowNull:false,
-      defaultValue:false
+    total_amount:{
+      type:DataTypes.INTEGER,
+      allowNull:false
+    },
+    status:{
+      type:DataTypes.STRING,
+      allowNull:false
     } 
   }, {
     sequelize,
-    modelName: 'users',
+    modelName: 'invoices',
   });
-  return users;
+  return invoices;
 };

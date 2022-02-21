@@ -1,10 +1,27 @@
-import React from 'react'
+import React, { useEffect} from 'react'
 import InputField from '../inputField/InputField'
 import { Formik, Form } from 'formik'
 import Styles from './form.module.css'
-import { Button } from '@mui/material'
+import { Button, Typography } from '@mui/material'
 import * as Yup from 'yup'
+import { Link } from 'react-router-dom'
+import {useDispatch,useSelector} from 'react-redux'
+import { register } from "../../actions/userAction";
+import {useNavigate} from 'react-router-dom'
 function SignUpForm() {
+
+
+const dispatch = useDispatch();
+const userRegister = useSelector((state)=> state.userRegister)
+const  navigate = useNavigate();
+const {userInfo } = userRegister;
+useEffect(() => {
+  if (userInfo) {
+    navigate('/login')
+  }
+}, [userInfo,navigate]);
+
+
   const validate = Yup.object({
     username: Yup.string()
       .max(15, 'Must be 15 character or less')
@@ -27,7 +44,8 @@ function SignUpForm() {
       }}
       validationSchema={validate}
       onSubmit={(values) => {
-        console.log(values)
+        const {username,email,password} = values
+        dispatch(register(username,email,password))
       }}
     >
       {(formik) => (
@@ -66,6 +84,14 @@ function SignUpForm() {
               margin={'dense'}
               type="password"
             />
+            <Typography>
+              Have an account? Already Please
+              &nbsp;
+              <Link to="/login">
+                  Log In
+              </Link>
+            </Typography>
+            <br></br>
             <Button
               variant="contained"
               size="large"

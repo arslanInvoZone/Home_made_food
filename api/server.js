@@ -7,6 +7,7 @@ const {sequelize} = require('./models')
 const bodyParser = require('body-parser')
 const heltmet = require('helmet')
 const dotenv = require('dotenv')
+const MenuRoutes = require('./routes/Menu')
 const app = express()
 dotenv.config()
 require('./auth/passport')
@@ -25,7 +26,7 @@ app.use(heltmet())
 
 //routes
 app.use('/api/users',UserRoutes)
-
+app.use('/api/menus',MenuRoutes)
 //server
 app.listen(5000, async() => {
     console.log("Backend server is running!".underline.bold.yellow);
